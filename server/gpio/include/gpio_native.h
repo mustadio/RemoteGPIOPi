@@ -1,7 +1,7 @@
 #ifndef __GPIO_NATIVE_H__
 #define __GPIO_NATIVE_H__
 
-#include <stdint.h>
+#include <cstdint>
 
 class GPIO_Native
 {
@@ -13,12 +13,12 @@ public:
     };
     GPIO_Native();
     ~GPIO_Native();
-    void setMode(const unsigned char gpio_port, const GPIO_Native::Mode mode);
-    void setPort(const unsigned char gpio_port);
-    unsigned char readPort(const unsigned char gpio_port) const;
+    void setMode(const uint8_t gpio_port, const GPIO_Native::Mode mode);
+    void setPort(const uint8_t gpio_port);
+    uint8_t readPort(const uint8_t gpio_port) const;
 
 private:
-    unsigned long addr_p;
+    void *addr;
     int mem_fd;
 
 private:

@@ -8,6 +8,7 @@ INCLUDE_DIRECTORIES(
   gpio/include
   )
 
+SET( CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -std=c++11" )
 
 FILE(GLOB_RECURSE all_files
   gpio/include/*.h
