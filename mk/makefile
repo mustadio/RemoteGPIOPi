@@ -34,6 +34,7 @@ $(OBJ_TOP): $(DIR_OBJ)%.o: $(DIR_SRC)%.cpp
 	$(CXX) $(CXX_FLAGS) -c  $< -o $@
 
 clean: $(SUBDIRS)
+	rm $(TARGET) $(OBJ_TOP)
 
 $(SUBDIRS):
 	$(MAKE) -C $@ $(MAKECMDGOALS)

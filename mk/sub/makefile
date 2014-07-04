@@ -1,5 +1,6 @@
 
-MOD_NAME = $(subst $(DIR_TOP),aaa,$(CURDIR))
+#MOD_NAME = $(subst $(DIR_TOP),aaa,$(CURDIR))
+MOD_NAME = $(shell basename $(CURDIR))
 
 DIR_INC = ./include
 DIR_SRC = ./source
@@ -14,9 +15,12 @@ TARGET = $(DIR_OBJ)/$(MOD_NAME)$(MOD_EXT)
 
 include $(DIR_TOP)/build/config.mak
 
-.PHONY: $(DIR_CUR_OBJ)
+.PHONY: $(DIR_CUR_OBJ) clean
 
 all: $(DIR_CUR_OBJ) $(TARGET)
+
+clean:
+	rm $(TARGET) $(OBJ)
 
 $(TARGET): $(OBJ)
 	# $(MKDIR_P) $(@D)
