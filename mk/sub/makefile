@@ -7,8 +7,11 @@ DIR_SRC = ./source
 
 DIR_CUR_OBJ = $(DIR_OBJ)/$(MOD_NAME)
 
-SRC = $(wildcard $(DIR_SRC)/*.cpp)
-OBJ = $(patsubst %.cpp,$(DIR_CUR_OBJ)/%.o,$(notdir $(SRC)))
+SRC_CPP = $(wildcard $(DIR_SRC)/*.cpp)
+OBJ_CPP = $(patsubst %.cpp,$(DIR_CUR_OBJ)/%.o,$(notdir $(SRC_CPP)))
+
+SRC_C = $(wildcard $(DIR_SRC)/*.c)
+OBJ_C = $(patsubst %.c,$(DIR_CUR_OBJ)/%.o,$(notdir $(SRC_C)))
 
 
 TARGET = $(DIR_OBJ)/$(MOD_NAME)$(MOD_EXT)
@@ -22,12 +25,14 @@ all: $(DIR_CUR_OBJ) $(TARGET)
 clean:
 	rm $(TARGET) $(OBJ)
 
-$(TARGET): $(OBJ)
-	# $(MKDIR_P) $(@D)
-	$(AR) $(AR_FLAGS) $@ $(OBJ)
+$(TARGET): $(OBJ_CPP) $(OBJ_C)
+	$(AR) $(AR_FLAGS) $@ $(OBJ_CPP) $(OBJ_C) 
 
 $(DIR_CUR_OBJ):
 	$(MKDIR_P) $(DIR_CUR_OBJ)
 
-$(OBJ): $(DIR_CUR_OBJ)%.o: $(DIR_SRC)%.cpp
+$(OBJ_CPP): $(DIR_CUR_OBJ)%.o: $(DIR_SRC)%.cpp
 	$(CXX) $(CXX_FLAGS) -c  $< -o $@
+
+$(OBJ_C): $(DIR_CUR_OBJ)%.o: $(DIR_SRC)%.c
+	$(CC) $(CC_FLAGS) -c  $< -o $@
